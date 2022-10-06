@@ -1,0 +1,29 @@
+import hashlib
+
+type_of_hash = str(input('What type of hash would you like to bruteforce: '))
+hash_to_decrypt = str(input('Enter Hash Value To Bruteforce: '))
+
+with open('passwordlist.txt', 'r') as file:
+    for line in file.readlines():
+        if type_of_hash == 'md5':
+            hash_object = hashlib.md5(line.strip().encode())
+            hashed_word = hash_object.hexdigest()
+            if hashed_word == hash_to_decrypt:
+                print('Found MD5 Password: ' + line.strip())
+                exit(0)
+
+        if type_of_hash == 'sha1':
+            hash_object = hashlib.sha1(line.strip().encode())
+            hashed_word = hash_object.hexdigest()
+            if hashed_word == hash_to_decrypt:
+                print('Found SHA1 Password: ' + line.strip())
+                exit(0)
+
+        if type_of_hash == 'sha256':
+            hash_object = hashlib.sha256(line.strip().encode())
+            hashed_word = hash_object.hexdigest()
+            if hashed_word == hash_to_decrypt:
+                print('Found SHA256 Password: ' + line.strip())
+                exit(0)
+
+    print('Password Not In File.')
